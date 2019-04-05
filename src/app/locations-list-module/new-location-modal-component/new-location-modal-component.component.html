@@ -1,9 +1,9 @@
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.location">
+    <input matInput [(ngModel)]="data.location" #placeMarkerInput>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.location" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="data.location">Ok</button>
 </div>
