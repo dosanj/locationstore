@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewLocationModalComponentComponent } from '../new-location-modal-component/new-location-modal-component.component';
+import { Store } from '@ngrx/store';
+import { AddNewLocation } from '../state/location-list.action';
+import { LocationItem } from '../location.state';
 
 @Component({
   selector: 'app-new-location-button-component',
@@ -9,7 +12,7 @@ import { NewLocationModalComponentComponent } from '../new-location-modal-compon
 })
 export class NewLocationButtonComponentComponent implements OnInit {
   location: any;
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private store: Store<any>) {}
 
   ngOnInit() {}
   openNewLocationModule() {
@@ -18,7 +21,10 @@ export class NewLocationButtonComponentComponent implements OnInit {
       data: { location: this.location }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+      if (result) {
+        const newLocation: LocationItem = { placeMarker: result };
+        this.store.dispatch(new AddNewLocation(newLocation));
+      }
     });
   }
 }

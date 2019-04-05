@@ -1,4 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export interface DialogData {
   location: string;
@@ -9,6 +15,7 @@ export interface DialogData {
   styleUrls: ['./new-location-modal-component.component.scss']
 })
 export class NewLocationModalComponentComponent implements OnInit {
+  @ViewChild('placeMarkerInput') placeMarkerInput: ElementRef;
   constructor(
     public dialogRef: MatDialogRef<NewLocationModalComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
@@ -18,5 +25,7 @@ export class NewLocationModalComponentComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.placeMarkerInput.nativeElement.focus();
+  }
 }
